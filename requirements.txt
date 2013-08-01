@@ -1,0 +1,5 @@
+numpy==1.7.1
+pupynere==1.0.15
+py==1.4.15
+pytest==2.3.5
+wsgiref==0.1.2
