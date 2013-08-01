@@ -7,19 +7,11 @@ Limitations:
 1) only for small csv files
 2) csv files without header - csv module is not used!
 
-The script is based on code from the following blog post:
-http://www.j-raedler.de/2010/12/how-to-convert-a-csv-file-\
-to-netcdf-with-7-lines-of-python-code/
-
-Dependencies:
-
-1) numpy
-2) pupynere
-
 """
 
 import sys
 import os.path
+import csv
 import pupynere
 
 
