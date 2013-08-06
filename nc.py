@@ -21,19 +21,17 @@ def update_name(old_name):
     return '.'.join(new)
 
 
-def csv_to_nc(argv):
-    """Transform csv file into netcdf format.
-
-    Args:
-      - argv: filename, example: data.csv
-
-    Returns:
-      - netcdf file, example: data.nc
-
-    Usage:
-      $ ./csv_to_nc.py data.csv
-
+def csv_to_nc(csvfl):
     """
+    Transforms csv file into netcdf format.
+
+    :Args:
+      - csvfl cvs data file, example: data.csv
+
+    :Returns:
+      - netcdf file, example: data.nc
+    """
+
     with open(sys.argv[1], 'r') as f:
         ll = [l.strip().split(',') for l in 
               f.readlines() if not l.startswith('#')]
@@ -50,17 +48,15 @@ def csv_to_nc(argv):
     return 0
 
 
-def main(argv):
-    if len(argv) < 2:
-        sys.stderr.write("Usage: {0} <data_file.csv>".format(argv[0]))
-	return 1
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) < 2:
+        print("Usage: nc.py csvfile")
+        raise SystemExit(1)
 
-    if not os.path.exists(argv[1]):
-        sys.stderr.write("ERROR: csv data file {0} not found.".format(argv[1]))
-	return 1
+    if not os.path.exists(sys.argv[1]):
+        print("Error: csvdata file {0} not found".format(sys.argv[1]))
+        raise SystemExit(1)
 
-    return csv_to_nc(argv)
-
-
-if __name__ == "__main__": 
-    sys.exit(main(sys.argv))
+    csv_to_nc(sys.argv[1])
+   
