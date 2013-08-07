@@ -12,12 +12,18 @@ import pupynere
 
 
 def update_name(old_name):
+    '''Return filename with new ext - .nc'''
     new = old_name.split('.')
     new[-1] = 'nc'
     return '.'.join(new)
 
 
 def read_file(fl):
+    '''Yields line by line
+
+    :Args:
+      - fl, csv file for transformation 
+    '''
     with open(fl, 'r') as f:
         for line in f:
             if not line.startswith('#'):
