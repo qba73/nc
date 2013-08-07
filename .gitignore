@@ -37,3 +37,9 @@ nosetests.xml
 
 # Vim swp files
 *.swp
+
+# NC data files
+# used for testing
+*.csv
+*.nc
+
