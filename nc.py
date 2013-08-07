@@ -3,10 +3,6 @@
 File format converter.
 The script converts csv file to netcdf format.
 
-Limitations:
-1) only for small csv files
-2) csv files without header - csv module is not used!
-
 """
 
 import sys
@@ -21,6 +17,13 @@ def update_name(old_name):
     return '.'.join(new)
 
 
+def read_file(fl):
+    with open(fl, 'r') as f:
+        for line in f:
+            if not line.startswith('#'):
+                yield line.strip().split(',')
+
+
 def csv_to_nc(csvfl):
     """
     Transforms csv file into netcdf format.
@@ -32,13 +35,9 @@ def csv_to_nc(csvfl):
       - netcdf file, example: data.nc
     """
 
-    with open(sys.argv[1], 'r') as f:
-        ll = [l.strip().split(',') for l in 
-              f.readlines() if not l.startswith('#')]
+    vv = zip(*[map(float, l) for l in read_file(csvfl)])
 
-    vv = zip(*[map(float, l) for l in ll])
-
-    transformed_file = update_name(sys.argv[1])
+    transformed_file = update_name(csvfl)
     nc = pupynere.netcdf_file(transformed_file, 'w')
 
     nc.createDimension('dim', None)
@@ -51,11 +50,11 @@ def csv_to_nc(csvfl):
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
-        print("Usage: nc.py csvfile")
+        sys.stderr.write("Usage: nc.py csvfile\n")
         raise SystemExit(1)
 
     if not os.path.exists(sys.argv[1]):
-        print("Error: csvdata file {0} not found".format(sys.argv[1]))
+        sys.stderr.write("Error: csvdata file {0} not found\n".format(sys.argv[1]))
         raise SystemExit(1)
 
     csv_to_nc(sys.argv[1])
