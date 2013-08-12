@@ -52,7 +52,7 @@ def csv_to_nc(csvfl):
 if __name__ == "__main__":
     import sys
     if len(sys.argv) < 2:
-        sys.stderr.write("Usage: nc.py csvfile\n")
+        sys.stderr.write("Usage: csvnc.py csvfile\n")
         raise SystemExit(1)
 
     if not os.path.exists(sys.argv[1]):
