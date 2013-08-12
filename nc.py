@@ -5,7 +5,6 @@ The script converts csv file to netcdf format.
 
 """
 
-import sys
 import os.path
 import csv
 import pupynere
@@ -22,7 +21,7 @@ def read_file(fl):
     '''Yields line by line
 
     :Args:
-      - fl, csv file for transformation 
+      - fl, csv file for transformation
     '''
     with open(fl, 'r') as f:
         for line in f:
@@ -41,7 +40,7 @@ def csv_to_nc(csvfl):
       - netcdf file, example: data.nc
     """
 
-    vv = zip(*[map(float, l) for l in read_file(csvfl)])
+    vv = (item for item in zip(*[map(float, l) for l in read_file(csvfl)]))
 
     transformed_file = update_name(csvfl)
     nc = pupynere.netcdf_file(transformed_file, 'w')
@@ -49,7 +48,7 @@ def csv_to_nc(csvfl):
     nc.createDimension('dim', None)
 
     for i, item in enumerate(vv):
-       nc.createVariable('var_%02d' % i, 'd', ('dim',))[:] = vv[i]
+        nc.createVariable('var_%02d' % i, 'd', ('dim',))[:] = item
     return 0
 
 
@@ -60,8 +59,8 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
     if not os.path.exists(sys.argv[1]):
-        sys.stderr.write("Error: csvdata file {0} not found\n".format(sys.argv[1]))
+        sys.stderr.write("Error: csvdata file {0} not found\n".format(
+            sys.argv[1]))
         raise SystemExit(1)
 
     csv_to_nc(sys.argv[1])
-   
