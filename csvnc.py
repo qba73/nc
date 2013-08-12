@@ -6,15 +6,12 @@ The script converts csv file to netcdf format.
 """
 
 import os.path
-import csv
 import pupynere
 
 
 def update_name(old_name):
-    '''Return filename with new ext - .nc'''
-    new = old_name.split('.')
-    new[-1] = 'nc'
-    return '.'.join(new)
+    '''Return filename with new ext nc'''
+    return '.'.join([os.path.splitext(old_name)[0], 'nc'])
 
 
 def read_file(fl):
