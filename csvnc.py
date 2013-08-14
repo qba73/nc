@@ -9,7 +9,7 @@ import os.path
 import pupynere
 
 
-def update_name(old_name):
+def new_name(old_name):
     '''Return filename with new ext nc'''
     return '.'.join([os.path.splitext(old_name)[0], 'nc'])
 
@@ -19,6 +19,7 @@ def read_file(fl):
 
     :Args:
       - fl, csv file for transformation
+
     '''
     with open(fl, 'r') as f:
         for line in f:
@@ -26,27 +27,31 @@ def read_file(fl):
                 yield line.strip().split(',')
 
 
-def csv_to_nc(csvfl):
-    """
-    Transforms csv file into netcdf format.
+def make_float(fl):
+    '''Returns generator that yields csv lines with float numbers
 
     :Args:
-      - csvfl cvs data file, example: data.csv
+     - fl, csv file for transformation
+
+    '''
+    return (item for item in zip(*[map(float, l) for l in read_file(fl)]))
+
+
+def main(fl):
+    """Transforms csv file into netcdf format.
+
+    :Args:
+      - fl, cvs data file, example: data.csv
 
     :Returns:
       - netcdf file, example: data.nc
+
     """
-
-    vv = (item for item in zip(*[map(float, l) for l in read_file(csvfl)]))
-
-    transformed_file = update_name(csvfl)
-    nc = pupynere.netcdf_file(transformed_file, 'w')
-
+    nc = pupynere.netcdf_file(new_name(fl), 'w')
     nc.createDimension('dim', None)
 
-    for i, item in enumerate(vv):
+    for i, item in enumerate(make_float(fl)):
         nc.createVariable('var_%02d' % i, 'd', ('dim',))[:] = item
-    return 0
 
 
 if __name__ == "__main__":
@@ -60,4 +65,4 @@ if __name__ == "__main__":
             sys.argv[1]))
         raise SystemExit(1)
 
-    csv_to_nc(sys.argv[1])
+    main(sys.argv[1])
