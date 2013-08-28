@@ -37,7 +37,7 @@ def make_float(fl):
     return (item for item in zip(*[map(float, l) for l in read_file(fl)]))
 
 
-def main(fl):
+def transform(fl):
     """Transforms csv file into netcdf format.
 
     :Args:
@@ -54,15 +54,18 @@ def main(fl):
         nc.createVariable('var_%02d' % i, 'd', ('dim',))[:] = item
 
 
-if __name__ == "__main__":
+def main():
     import sys
     if len(sys.argv) < 2:
         sys.stderr.write("Usage: csvnc.py csvfile\n")
         raise SystemExit(1)
-
     if not os.path.exists(sys.argv[1]):
         sys.stderr.write("Error: csvdata file {0} not found\n".format(
             sys.argv[1]))
         raise SystemExit(1)
 
-    main(sys.argv[1])
+    transform(sys.argv[1])
+
+
+if __name__ == "__main__":
+    main()
