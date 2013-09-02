@@ -46,13 +46,10 @@ setup(
     packages=[
         'csvnc',
     ],
-    tests_require=['pytest'],
     package_dir={'csvnc': 'csvnc'},
     include_package_data=True,
     install_requires=[
     ],
-    license='MIT',
-    zip_safe=False,
     keywords=['netcdf', 'nc', 'gis', 'csv'],
     entry_points={'console_scripts': ['csvnc = csvnc.csvnc:main']},
     license='MIT',
