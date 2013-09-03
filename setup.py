@@ -3,7 +3,6 @@
 import os
 import sys
 from setuptools.command.test import test as TestCommand
-import csvnc
 
 try:
     from setuptools import setup
@@ -18,7 +17,7 @@ class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = []
-        self.test_suite = True
+        self.test_suite = True 
 
     def run_test(self):
         # import here, cause outside the
