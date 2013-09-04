@@ -4,8 +4,8 @@ Unittests for csvnc module
 
 """
 
-import os
 import pytest
+import os
 from csvnc import csvnc
 
 
