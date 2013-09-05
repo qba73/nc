@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/qba73/nc.png?branch=dev)](https://travis-ci.org/qba73/nc)
+
 CSV to netCDF file format converter.
 
 Network Common Data Form (netCDF) is a file format for storing
