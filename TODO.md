@@ -1,5 +1,5 @@
 - Use argparse for cli
-- Add TravisCI support
+- Add agraparse module
 - Add ability to specify new file name and location
 - Add docstrings in reSt format
 - Generate docs
