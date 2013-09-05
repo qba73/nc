@@ -43,7 +43,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='csvnc',
-    version='0.1dev',
+    version='0.1.0',
     description='Simple csv to nc file format converter.',
     long_description=readme + '\n\n' + doclink + '\n\n' + history,
     author='Jakub Jarosz',
