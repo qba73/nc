@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/qba73/nc.png?branch=dev)](https://travis-ci.org/qba73/nc)
 
 CSV to netCDF file format converter.
 
