@@ -57,7 +57,7 @@ def transform(fl):
 def main():
     import sys
     if len(sys.argv) < 2:
-        sys.stderr.write("Usage: csvnc.py csvfile\n")
+        sys.stderr.write("Usage: csvnc <csvfile>\n")
         raise SystemExit(1)
     if not os.path.exists(sys.argv[1]):
         sys.stderr.write("Error: csvdata file {0} not found\n".format(

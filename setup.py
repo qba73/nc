@@ -1,56 +1,77 @@
-from setuptools import setup
-from setuptools import find_packages
-from setuptools.command.test import test as TestCommand
+#!/usr/bin/env python
 
-import io
-import codecs
 import os
-import os.path
 import sys
+from setuptools.command.test import test as TestCommand
+import csvnc
 
-here = os.path.abspath(os.path.dirname(__file__))
 
-def read(*filenames, **kwargs):
-    encoding = kwargs.get('encoding', 'utf-8')
-    sep = kwargs.get('sep', '\n')
-    buf = []
-    for filename in filenames:
-        with io.open(filename, encoding=encoding) as f:
-            buf.append(f.read())
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
-long_description = read('README.txt', 'CHANGES.txt')
+
+if sys.argv[-1] == 'publish':
+    os.system('python setup.py sdist upload')
+    sys.exit()
+
 
 class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
-        self.test_args = ['-v']
-        self.test_suite = True
+        self.test_args = []
+        self.test_suite = True 
 
-    def run_test(self):
+    def run_tests(self):
+        # import here, cause outside the
+        # eggs aren't imported
         import pytest
         errno = pytest.main(self.test_args)
         sys.exit(errno)
 
 
+readme = open('README.rst').read()
+doclink = """
+Documentation
+-------------
+
+The full documentation is at http://csvnc.rtfd.org."""
+history = open('HISTORY.rst').read().replace('.. :changelog:', '')
+
+
+
 setup(
     name='csvnc',
     version='0.1.0',
-    description='csv to nc converter',
-    author=('Jakub Jarosz <jakub.s.jarosz@gmail.com>',),
-    author_email='jakub.s.jarosz at gmail.com',
+    description='Simple csv to nc file format converter.',
+    long_description=readme + '\n\n' + doclink + '\n\n' + history,
+    author='Jakub Jarosz',
+    author_email='jakub.s.jarosz@gmail.com',
     url='https://github.com/qba73/nc',
-    tests_require=['pytest'],
-    cmdclass={'test': PyTest},
-    entry_points={'console_scripts': ['csvnc = csvnc.csvnc:main']},
-    packages=['csvnc'],
-    license='GPL',
-    zip_safe=False,
+    packages=[
+        'csvnc',
+    ],
+    package_dir={'csvnc': 'csvnc'},
+    include_package_data=True,
+    install_requires=[
+    ],
     keywords=['netcdf', 'nc', 'gis', 'csv'],
+    entry_points={'console_scripts': ['csvnc = csvnc.csvnc:main']},
+    license='MIT',
+    zip_safe=False,
     classifiers=[
-        'Development Status :: 1 - Aplha',
+        'Development Status :: 2 - Pre-Aplha',
         'Intendent Audience :: GIS Technicians',
-        'Licence  :: OSI Approved :: GNU General Pulic Licence (GPL)',
+        'Licence  :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Topic :: Software Development :: Libraries :: Python Modules'
-    ], 
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+    ],
+    tests_require=['pytest>=2.3.5'],
+    cmdclass = {'test': PyTest}, 
 )
+
