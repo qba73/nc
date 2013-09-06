@@ -2,7 +2,6 @@
 """
 File format converter.
 The script converts csv file to netcdf format.
-
 """
 
 import os.path
@@ -15,7 +14,7 @@ def new_name(old_name):
 
 
 def read_file(fl):
-    '''Yields line by line
+    '''Yields csv line
 
     :Args:
       - fl, csv file for transformation
