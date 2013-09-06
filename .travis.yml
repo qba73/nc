@@ -15,7 +15,4 @@ script: python setup.py test
 
 notifications:
   email: false
-<<<<<<< HEAD
 
-=======
->>>>>>> 72ef216565c37249e4c60ad5e10579c12b95903e
