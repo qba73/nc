@@ -47,3 +47,5 @@ __pycache__
 # Vagrant config
 .vagrant
 
+.codio
+
