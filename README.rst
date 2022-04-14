@@ -2,7 +2,7 @@
 csvnc
 =============
 
-.. image:: https://travis-ci.org/qba73/nc.png?branch=dev
+.. image:: https://travis-ci.org/qba73/nc.png?branch=master
         :target: https://travis-ci.org/qba73/nc
 
 
